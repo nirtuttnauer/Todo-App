@@ -2,7 +2,6 @@ import React from "react";
 const Input = (props) => {
     const handleChange = event => {
         props.setTask(event.target.value);
-        console.log('value is:', event.target.value);
     }
     return<div className={'flex-box bk-div space'}>
 

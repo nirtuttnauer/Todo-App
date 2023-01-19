@@ -1,40 +1,28 @@
 import TodoItem from "./TodoItem";
-import React, {useState} from "react";
+import React from "react";
+import {createContext} from "react";
+import List from "./Common/List"
 
+export const TodoListContext = React.createContext({});
 
-const TodoList = (props) => {
+const TodoList = ({setTodos, todos}) => {
 
 
     const handleTodoClick = (index) => {
-        const newTodos = [...props.todos];
+        const newTodos = [...(todos)];
         newTodos[index].isCompleted = !newTodos[index].isCompleted;
-        props.setTodos(newTodos);
+        setTodos(newTodos);
     };
     const handleTodoRemove = (index) => {
-        // Create a new array with the todo item at the given index removed
-        const newTodos = [...props.todos.slice(0, index), ...props.todos.slice(index + 1)];
-        // Update the todos state variable with the new array
-        props.setTodos(newTodos);
+        const newTodos = [...todos.slice(0, index), ...todos.slice(index + 1)];
+        setTodos(newTodos);
     };
 
     return (
         <div>
-
-
-
-
-
-            {props.todos.map((todo, index) => (
-                <TodoItem
-                    key={index}
-                    content={todo.content}
-                    isCompleted={todo.isCompleted}
-                    onClick={() => handleTodoClick(index)}
-                    onRemove={() => handleTodoRemove(index)}
-                />
-            ))}
-
-
+            <TodoListContext.Provider value = {{handleTodoClick}}>
+            <List items={todos} Component={TodoItem}/>
+            </TodoListContext.Provider>
         </div>
     );
 };

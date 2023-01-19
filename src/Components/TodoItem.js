@@ -1,9 +1,10 @@
-import React from "react";
+import React, {useContext} from "react";
+import {TodoListContext} from "./TodoList";
 
 const TodoItem = (props) => {
-
+    const value = useContext(TodoListContext)
     const handleClickCompleted = () => {
-        props.onClick(props.index);
+        value.handleTodoClick(props.index);
     };
 
     return (
